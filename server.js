@@ -1,7 +1,7 @@
 import express from "express";
-import dotenv from "dotenv";
 import allRoutes from "./src/Routes/allRoutes.js";
 import { connectPostgres } from "./src/db/dbConfig.js";
+import dotenv from "dotenv";
 dotenv.config();
 
 const PORT = process.env.PORT || 4001;
