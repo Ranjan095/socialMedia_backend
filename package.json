@@ -26,6 +26,8 @@
     "prisma": "^6.16.2"
   },
   "lint-staged": {
-    "*.{js,ts,json,css,md}": "prettier --write"
+    "*.{js,ts,json,css,md}": [
+      "prettier --write"
+    ]
   }
 }
