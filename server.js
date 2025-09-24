@@ -14,5 +14,5 @@ app.use('/api', allRoutes);
 await connectPostgres();
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
