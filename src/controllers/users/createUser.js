@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import prisma from '../../db/prisma.js';
 import errorHandler from '../../middlewares/errorHandler.js';
 
@@ -23,15 +24,26 @@ export const createUser = async (req, res) => {
       });
     }
 
+    // Hash password
+    const saltRounds = process.env.SALT_ROUNDS ? parseInt(process.env.SALT_ROUNDS) : 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    if (!hashedPassword) {
+      return res.status(500).json({
+        success: false,
+        message: 'Error hashing password',
+      });
+    }
+
     // Create user
     const user = await prisma.user.create({
       data: {
         firstName,
-        lastName: lastName || null, // allow null if not provided
+        lastName: lastName || null,
         mobile,
         email,
         dob: new Date(dob),
-        password, // ⚠️ hash this in real apps!
+        password: hashedPassword,
         country,
         state,
         city,
